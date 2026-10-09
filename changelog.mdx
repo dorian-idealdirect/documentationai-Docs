@@ -1,0 +1,130 @@
+---
+title: Changelog
+description: Track Idealsync's version history, recent updates, improvements, and changes to stay informed on new features.
+---
+
+## Latest Updates
+
+Stay current with Idealsync's releases. You receive automatic updates in your workspace, but check here for detailed notes on new capabilities, fixes, and changes.
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added automation workflows for task assignments and notifications
+- Introduced real-time collaboration in knowledge base documents
+- New dashboard analytics for project momentum tracking
+
+## Improvements
+
+- Enhanced search with fuzzy matching across all workspaces
+- Optimized performance for large teams (`<50ms` load times)
+- Better mobile support for on-the-go updates
+
+## Bug Fixes
+
+- Fixed sync issues between operations and launch modules
+- Resolved notification duplicates in team channels
+- Corrected data export formatting for CSV files
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Integrated brand asset management with auto-tagging
+- Customizable templates for idea launches
+- API access for external data integrations
+
+## Bug Fixes
+
+- Patched authentication token refresh errors
+- Fixed workspace sharing permissions
+- Improved error handling for failed automations
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["feature", "breaking"]}>
+
+## New Features
+
+- Core workspace setup with idea-to-action pipelines
+- Operations hub for connected workflows
+- Basic automation builder for repeat tasks
+
+## Breaking Changes
+
+- Updated config format – migrate your `idealsync.config.json`
+- Removed legacy v0.x endpoints
+
+</Update>
+
+## Upcoming Changes
+
+View the roadmap to see what's next. Prioritize feedback to shape future releases.
+
+<Board title="Q4 2024 Roadmap">
+  <BoardColumn title="Planned" color="0" icon="calendar">
+    <BoardCard title="Advanced analytics" description="AI-driven insights on team performance" icon="bar-chart-3" dueDate="2024-12-15" />
+    <BoardCard title="Third-party integrations" description="Connect Slack, Google Workspace, and more" icon="plug" dueDate="2024-12-01" />
+  </BoardColumn>
+  <BoardColumn title="In Progress" color="1" icon="loader-2">
+    <BoardCard title="Granular permissions" description="Role-based access controls" icon="shield" author="Engineering" />
+  </BoardColumn>
+  <BoardColumn title="Shipped" color="2" icon="check-circle">
+    <BoardCard title="Automation v2" description="Conditional logic and webhooks" createdAt="2024-10-15" />
+  </BoardColumn>
+</Board>
+
+## Upgrade Process
+
+Follow these steps to ensure smooth updates. Most changes apply automatically, but verify custom configurations.
+
+<Steps>
+  <Step title="Check Current Version" icon="package">
+    Run the version check command in your terminal.
+    
+````bash
+idealsync --version
+````
+
+    Expected output: `v1.2.0`
+  </Step>
+  <Step title="Update CLI" icon="download">
+    <Tabs>
+      <Tab title="npm" icon="package">
+````bash
+npm update @idealsync/cli -g
+````
+      </Tab>
+      <Tab title="yarn" icon="package">
+````bash
+yarn global upgrade @idealsync/cli
+````
+      </Tab>
+    </Tabs>
+  </Step>
+  <Step title="Restart Workspace" icon="refresh-cw">
+    Refresh your browser or restart the local server.
+    
+    ```
+    idealsync dev --restart
+    ```
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Subscribe to the Idealsync newsletter or join the Discord community for early access to betas and release announcements.
+</Callout>
+
+## Summary of Recent Changes
+
+<Columns cols={2}>
+  <Card title="Key Features" icon="zap" href="#latest-updates">
+    Automation workflows, real-time collab, and analytics.
+  </Card>
+  <Card title="Critical Fixes" icon="shield" href="#latest-updates">
+    Sync issues and notification bugs resolved.
+  </Card>
+</Columns>

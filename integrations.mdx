@@ -1,0 +1,169 @@
+---
+title: Integrations
+description: Connect Idealsync to third-party tools, configure webhooks, and extend your workspace for seamless business workflows.
+---
+
+## Available Integrations
+
+Idealsync supports seamless connections to popular third-party tools. Use these integrations to automate workflows, sync data, and enhance collaboration across your workspace.
+
+<Columns cols={3}>
+  <Card title="Slack" icon="message-circle" href="https://slack.com">
+    Send notifications for launches, operations updates, and automations directly to your Slack channels.
+  </Card>
+  <Card title="GitHub" icon="github" href="https://github.com">
+    Sync repositories with project launches and track code changes in your Idealsync workspace.
+  </Card>
+  <Card title="Zapier" icon="zap" href="https://zapier.com">
+    Build no-code automations connecting Idealsync to 5000+ apps.
+  </Card>
+  <Card title="Google Workspace" icon="mail" href="https://workspace.google.com">
+    Import docs, sheets, and calendar events into your connected workspace.
+  </Card>
+  <Card title="Stripe" icon="credit-card" href="https://stripe.com">
+    Track payments and subscriptions alongside business operations.
+  </Card>
+  <Card title="Airtable" icon="database" href="https://airtable.com">
+    Sync bases for dynamic data management and reporting.
+  </Card>
+</Columns>
+
+<Callout kind="info">
+  Check the full list of supported integrations in your workspace settings. New apps added regularly.
+</Callout>
+
+## Connect an Integration
+
+Follow these steps to set up any integration. You need admin access to your Idealsync workspace.
+
+<Steps>
+  <Step title="Navigate to Integrations" icon="settings">
+    Open your workspace menu and select `Integrations`.
+  </Step>
+  <Step title="Choose Provider" icon="plus">
+    Search for the app (e.g., Slack) and click `Connect`.
+  </Step>
+  <Step title="Authorize Access" icon="key">
+    Log in to the third-party service and grant permissions.
+  </Step>
+  <Step title="Configure Events" icon="sliders">
+    Select triggers like `launch created` or `automation completed`.
+  </Step>
+  <Step title="Test Connection" icon="play">
+    Send a test event to verify the setup.
+  </Step>
+</Steps>
+
+## Webhook Configuration
+
+Webhooks enable real-time data sync from Idealsync to your systems. Configure them for custom event handling.
+
+<Request tabs="cURL,JavaScript" show-lines="true">
+  ```bash
+  curl -X POST https://api.idealsync.com/v1/webhooks \
+    -H "Authorization: Bearer YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "url": "https://your-webhook-url.com/webhook",
+      "events": ["launch.created", "operation.updated"]
+    }'
+  ```
+  ````javascript
+  const response = await fetch('https://api.idealsync.com/v1/webhooks', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      url: 'https://your-webhook-url.com/webhook',
+      events: ['launch.created', 'operation.updated']
+    })
+  });
+  ````
+</Request>
+
+<Response tabs="200,400">
+  ```json
+  {
+    "id": "wh_123abc",
+    "url": "https://your-webhook-url.com/webhook",
+    "events": ["launch.created", "operation.updated"],
+    "active": true
+  }
+  ```
+  ```json
+  {
+    "error": "Invalid URL format"
+  }
+  ```
+</Response>
+
+<ParamField path="url" param-type="string" required="true">
+  Your secure HTTPS endpoint to receive payloads.
+</ParamField>
+
+<ParamField body="events" param-type="array" required="true">
+  Array of event names like `launch.created`.
+</ParamField>
+
+## Custom Workflow Examples
+
+Build powerful automations with integrations. View example workflows below.
+
+<Tabs>
+  <Tab title="Slack Notification" icon="message-circle">
+    Connect launches to Slack for instant team alerts.
+    
+    <CodeGroup tabs="JavaScript,Zapier">
+      ````javascript
+      // Handle webhook payload
+      app.post('/slack-webhook', (req, res) => {
+        const { event, data } = req.body;
+        if (event === 'launch.created') {
+          slack.postMessage(channel, `New launch: ${data.title}`);
+        }
+        res.status(200).send('OK');
+      });
+      ````
+      ````plaintext
+      Trigger: New Launch in Idealsync
+      Action: Post Message to Slack Channel
+      Map: Title → Message Text
+      ````
+    </CodeGroup>
+  </Tab>
+  <Tab title="GitHub Sync" icon="github">
+    Auto-create issues from operations tasks.
+    
+    ````javascript
+    // GitHub webhook handler
+    const payload = req.body;
+    if (payload.operation) {
+      await octokit.issues.create({
+        owner: 'your-org',
+        repo: 'project-repo',
+        title: payload.title,
+        body: payload.description
+      });
+    }
+    ````
+  </Tab>
+</Tabs>
+
+<Board title="Workflow Roadmap">
+  <BoardColumn title="Planned" color="0" icon="circle">
+    <BoardCard title="Notion Sync" description="Import pages as knowledge base" icon="book-open" dueDate="2024-12-15" />
+  </BoardColumn>
+  <BoardColumn title="In Progress" color="1" icon="loader">
+    <BoardCard title="Trello Integration" description="Sync cards with operations" icon="trello" author="Dev Team" />
+  </BoardColumn>
+  <BoardColumn title="Live" color="2" icon="check-circle">
+    <BoardCard title="Slack Webhooks" description="Real-time notifications" createdAt="2024-11-01" />
+    <BoardCard title="Zapier Triggers" icon="zap" />
+  </BoardColumn>
+</Board>
+
+<Callout kind="tip">
+  Secure your integrations with API keys and monitor usage in workspace analytics. Review permissions regularly.
+</Callout>
